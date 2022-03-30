@@ -1,0 +1,6 @@
+type Place @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  imgUrl: String!
+  title: String!
+  description: String!
+}

@@ -3,19 +3,35 @@ import './PlaceForm.scss';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Place } from '../../pages/Home/Home';
 
-const PlaceForm: React.FC = () => {
+
+
+interface PlaceFormProps {
+    createPlace: ( place: Place ) => void;
+}
+
+
+const PlaceForm: React.FC<PlaceFormProps> = (props) => {
     const inputName = useRef<HTMLInputElement>(null);
     const inputDescription = useRef<HTMLInputElement>(null);
     const inputImageUrl = useRef<HTMLInputElement>(null);
 
     const addPlace = () => {
-        const name = inputName.current?.value as string;
+        const title = inputName.current?.value as string;
         const description = inputDescription.current?.value;
-        const imageUrl = inputImageUrl.current?.value as string;
-        if (name && description && imageUrl) {
-            // TODO: Replace this log with code for saving places in our database 
-            console.log('New place data to save: ', {name, description, imageUrl});
+        const imgUrl = inputImageUrl.current?.value as string;
+        if (title && description && imgUrl) {
+            const newPlace: Place = {
+                id: Math.random().toString(),
+                title,
+                description,
+                imgUrl
+
+            }
+
+            console.log('New place data to save: ', newPlace);
+            props.createPlace(newPlace);
         }
     };
 
